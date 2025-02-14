@@ -1,0 +1,65 @@
+const messageInput = document.getElementById('messageInput');
+const sendButton = document.getElementById('sendButton');
+const messagesContainer = document.getElementById('messages');
+
+// Simulating "real-time" chat by refreshing the chat messages from localStorage
+function loadMessages() {
+  const messages = JSON.parse(localStorage.getItem('messages')) || [];
+  messagesContainer.innerHTML = ''; // Clear current messages
+  messages.forEach((message) => {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', message.sender);
+    messageElement.textContent = message.text;
+    messagesContainer.appendChild(messageElement);
+  });
+  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+}
+
+// Add new message to the chat
+function addMessage(sender, text) {
+  const message = {
+    sender: sender, // "user" or "bot"
+    text: text,
+  };
+
+  // Save messages to localStorage
+  const messages = JSON.parse(localStorage.getItem('messages')) || [];
+  messages.push(message);
+  localStorage.setItem('messages', JSON.stringify(messages));
+
+  // Add the message to the chat container
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('message', sender);
+  messageElement.textContent = text;
+  messagesContainer.appendChild(messageElement);
+  
+  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+}
+
+// Handle the "Send" button click
+sendButton.addEventListener('click', () => {
+  const messageText = messageInput.value.trim();
+  if (messageText) {
+    // Add user message
+    addMessage('user', messageText);
+
+    
+    // Simulate a "bot" response after a short delay
+    setTimeout(() => {
+        addMessage('bot', 'indu reddy');
+      }, 1000);
+
+       // Clear input field
+    messageInput.value = '';
+  }
+});
+
+// Handle Enter key press
+messageInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    sendButton.click();
+  }
+});
+
+// Load saved messages from localStorage when the page loads
+window.onload = loadMessages;

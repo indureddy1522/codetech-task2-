@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Chat</title>
+  <link rel="stylesheet" href="realtime.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div id="messages" class="messages"></div>
+    <input type="text" id="messageInput" class="message-input" placeholder="Type a message..." />
+    <button id="sendButton" class="send-button">Send</button>
+  </div>
+
+  <script src="realtime.js"></script>
+</body>
+</html>
